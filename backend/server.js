@@ -4,6 +4,7 @@ const express = require("express");
 const cors = require("cors");
 const productRoutes = require("./routes/productRoutes");
 const authRoutes = require("./routes/authRoutes");
+const cartRoutes = require("./routes/cartRoutes");
 
 const app = express();
 
@@ -22,6 +23,9 @@ app.get("/", (req, res) => {
 app.use("/products", productRoutes);
 // auth routes
 app.use("/", authRoutes);
+// cart routes
+app.use("/cart", cartRoutes);
+
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
