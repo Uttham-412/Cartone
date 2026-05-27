@@ -1,6 +1,11 @@
 import { Link } from "react-router-dom";
+import { useContext } from "react";
+
+import { AuthContext } from "../context/AuthContext";
 
 function Navbar() {
+    const { user, logout } = useContext(AuthContext);
+
     return (
         <nav
             style={{
@@ -16,24 +21,57 @@ function Navbar() {
             <div style={{ display: "flex", gap: "1rem" }}>
                 <Link
                     to="/"
-                    style={{ color: "white", textDecoration: "none" }}
+                    style={{
+                        color: "white",
+                        textDecoration: "none",
+                    }}
                 >
                     Home
                 </Link>
 
-                <Link
-                    to="/login"
-                    style={{ color: "white", textDecoration: "none" }}
-                >
-                    Login
-                </Link>
+                {!user ? (
+                    <>
+                        <Link
+                            to="/login"
+                            style={{
+                                color: "white",
+                                textDecoration: "none",
+                            }}
+                        >
+                            Login
+                        </Link>
 
-                <Link
-                    to="/register"
-                    style={{ color: "white", textDecoration: "none" }}
-                >
-                    Register
-                </Link>
+                        <Link
+                            to="/register"
+                            style={{
+                                color: "white",
+                                textDecoration: "none",
+                            }}
+                        >
+                            Register
+                        </Link>
+                    </>
+                ) : (
+                    <>
+                        <span style={{ color: "white" }}>
+                            Hi, {user.username}
+                        </span>
+
+                        <button
+                            onClick={logout}
+                            style={{
+                                background: "#ef4444",
+                                border: "none",
+                                padding: "0.5rem 1rem",
+                                color: "white",
+                                borderRadius: "6px",
+                                cursor: "pointer",
+                            }}
+                        >
+                            Logout
+                        </button>
+                    </>
+                )}
             </div>
         </nav>
     );
