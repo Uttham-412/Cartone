@@ -18,7 +18,7 @@ function Navbar() {
         >
             <h2 style={{ color: "white" }}>🛒 CART One</h2>
 
-            <div style={{ display: "flex", gap: "1rem" }}>
+            <div style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
                 <Link
                     to="/"
                     style={{
@@ -53,6 +53,16 @@ function Navbar() {
                     </>
                 ) : (
                     <>
+                        <Link
+                            to="/cart"
+                            style={{
+                                color: "white",
+                                textDecoration: "none",
+                            }}
+                        >
+                            Cart
+                        </Link>
+
                         <span style={{ color: "white" }}>
                             Hi, {user.username}
                         </span>

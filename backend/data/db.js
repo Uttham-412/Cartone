@@ -1,3 +1,4 @@
+const bcrypt = require("bcryptjs");
 const products = [
     {
         id: 1,
@@ -25,7 +26,14 @@ const products = [
     }
 ];
 
-const users = [];
+const users = [
+    {
+        id: 1,
+        username: "testuser",
+        email: "test@example.com",
+        password: bcrypt.hashSync("password123", 10),
+    },
+];
 
 const carts = {};
 
