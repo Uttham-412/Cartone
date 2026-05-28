@@ -49,7 +49,7 @@ const products = [
         price: 14.99,
         stock: 20,
         image:
-            "https://images.unsplash.com/photo-1517701550927-30cf4ba1fdf2?w=500",
+            "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500",
     },
     {
         id: 6,
