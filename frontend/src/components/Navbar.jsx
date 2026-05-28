@@ -17,8 +17,8 @@ function Navbar() {
         <nav
             style={{
                 background:
-                    "linear-gradient(90deg, #111827, #1f2937)",
-                padding: "1rem 2rem",
+                    "linear-gradient(90deg, #020617, #0f172a)",
+                padding: "1rem 2.5rem",
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
@@ -34,7 +34,6 @@ function Navbar() {
                 style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: "1rem",
                     textDecoration: "none",
                 }}
             >
@@ -42,48 +41,29 @@ function Navbar() {
                     src={logo}
                     alt="CART One Logo"
                     style={{
-                        width: "55px",
-                        height: "55px",
+                        height: "90px",
+                        width: "auto",
                         objectFit: "contain",
-                        borderRadius: "12px",
+                        filter:
+                            "drop-shadow(0 0 10px rgba(37,99,235,0.4))",
                     }}
                 />
-
-                <div>
-                    <h2
-                        style={{
-                            color: "white",
-                            fontWeight: "800",
-                            fontSize: "1.5rem",
-                        }}
-                    >
-                        CART One
-                    </h2>
-
-                    <p
-                        style={{
-                            color: "#9ca3af",
-                            fontSize: "0.8rem",
-                        }}
-                    >
-                        Smart Shopping
-                    </p>
-                </div>
             </Link>
 
             <div
                 style={{
                     display: "flex",
-                    gap: "1.5rem",
                     alignItems: "center",
+                    gap: "1.5rem",
                 }}
             >
                 <Link
                     to="/"
                     style={{
-                        color: "white",
+                        color: "#f8fafc",
                         textDecoration: "none",
-                        fontWeight: "500",
+                        fontWeight: "600",
+                        fontSize: "1rem",
                     }}
                 >
                     Products
@@ -94,8 +74,9 @@ function Navbar() {
                         <Link
                             to="/login"
                             style={{
-                                color: "white",
+                                color: "#f8fafc",
                                 textDecoration: "none",
+                                fontWeight: "600",
                             }}
                         >
                             Login
@@ -104,12 +85,15 @@ function Navbar() {
                         <Link
                             to="/register"
                             style={{
-                                background: "#2563eb",
+                                background:
+                                    "linear-gradient(135deg, #2563eb, #1d4ed8)",
                                 color: "white",
-                                padding: "0.6rem 1.2rem",
-                                borderRadius: "8px",
+                                padding: "0.8rem 1.4rem",
+                                borderRadius: "12px",
                                 textDecoration: "none",
-                                fontWeight: "600",
+                                fontWeight: "700",
+                                boxShadow:
+                                    "0 4px 15px rgba(37,99,235,0.3)",
                             }}
                         >
                             Register
@@ -120,9 +104,15 @@ function Navbar() {
                         <Link
                             to="/cart"
                             style={{
+                                background:
+                                    "rgba(255,255,255,0.08)",
                                 color: "white",
+                                padding: "0.8rem 1.2rem",
+                                borderRadius: "12px",
                                 textDecoration: "none",
-                                fontWeight: "600",
+                                fontWeight: "700",
+                                border:
+                                    "1px solid rgba(255,255,255,0.08)",
                             }}
                         >
                             Cart ({cartCount})
@@ -131,6 +121,7 @@ function Navbar() {
                         <span
                             style={{
                                 color: "#d1d5db",
+                                fontWeight: "500",
                             }}
                         >
                             Hi, {user.username}
@@ -139,13 +130,16 @@ function Navbar() {
                         <button
                             onClick={logout}
                             style={{
-                                background: "#ef4444",
+                                background:
+                                    "linear-gradient(135deg, #ef4444, #dc2626)",
                                 color: "white",
                                 border: "none",
-                                padding: "0.6rem 1rem",
-                                borderRadius: "8px",
+                                padding: "0.8rem 1.2rem",
+                                borderRadius: "12px",
                                 cursor: "pointer",
-                                fontWeight: "600",
+                                fontWeight: "700",
+                                boxShadow:
+                                    "0 4px 15px rgba(239,68,68,0.3)",
                             }}
                         >
                             Logout
