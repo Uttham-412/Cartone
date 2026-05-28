@@ -1,4 +1,5 @@
 const bcrypt = require("bcryptjs");
+
 const products = [
     {
         id: 1,
@@ -23,6 +24,30 @@ const products = [
         price: 149.99,
         stock: 5,
         image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500"
+    },
+    {
+        id: 4,
+        name: "Laptop Backpack",
+        description: "Durable backpack with laptop compartment.",
+        price: 49.99,
+        stock: 15,
+        image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500"
+    },
+    {
+        id: 5,
+        name: "Coffee Mug",
+        description: "Ceramic coffee mug for everyday use.",
+        price: 14.99,
+        stock: 20,
+        image: "https://images.unsplash.com/photo-1514228742587-6b1558fcf93a?w=500"
+    },
+    {
+        id: 6,
+        name: "External SSD",
+        description: "Portable high-speed external SSD storage.",
+        price: 129.99,
+        stock: 7,
+        image: "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500"
     }
 ];
 
