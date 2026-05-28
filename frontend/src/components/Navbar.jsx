@@ -1,4 +1,8 @@
-import { Link } from "react-router-dom";
+import {
+    Link,
+    useLocation,
+} from "react-router-dom";
+
 import { useContext } from "react";
 
 import { AuthContext } from "../context/AuthContext";
@@ -12,6 +16,8 @@ function Navbar() {
 
     const { cartCount } =
         useContext(CartContext);
+
+    const location = useLocation();
 
     return (
         <nav
@@ -60,10 +66,16 @@ function Navbar() {
                 <Link
                     to="/"
                     style={{
-                        color: "#f8fafc",
+                        color: "white",
                         textDecoration: "none",
-                        fontWeight: "600",
-                        fontSize: "1rem",
+                        fontWeight: "700",
+                        padding: "0.7rem 1rem",
+                        borderRadius: "12px",
+
+                        background:
+                            location.pathname === "/"
+                                ? "linear-gradient(135deg, #2563eb, #1d4ed8)"
+                                : "transparent",
                     }}
                 >
                     Products
@@ -74,7 +86,7 @@ function Navbar() {
                         <Link
                             to="/login"
                             style={{
-                                color: "#f8fafc",
+                                color: "white",
                                 textDecoration: "none",
                                 fontWeight: "600",
                             }}
@@ -92,8 +104,6 @@ function Navbar() {
                                 borderRadius: "12px",
                                 textDecoration: "none",
                                 fontWeight: "700",
-                                boxShadow:
-                                    "0 4px 15px rgba(37,99,235,0.3)",
                             }}
                         >
                             Register
@@ -104,15 +114,17 @@ function Navbar() {
                         <Link
                             to="/cart"
                             style={{
-                                background:
-                                    "rgba(255,255,255,0.08)",
                                 color: "white",
-                                padding: "0.8rem 1.2rem",
-                                borderRadius: "12px",
                                 textDecoration: "none",
                                 fontWeight: "700",
-                                border:
-                                    "1px solid rgba(255,255,255,0.08)",
+                                padding: "0.8rem 1.2rem",
+                                borderRadius: "12px",
+
+                                background:
+                                    location.pathname ===
+                                        "/cart"
+                                        ? "linear-gradient(135deg, #2563eb, #1d4ed8)"
+                                        : "rgba(255,255,255,0.08)",
                             }}
                         >
                             Cart ({cartCount})
@@ -138,8 +150,6 @@ function Navbar() {
                                 borderRadius: "12px",
                                 cursor: "pointer",
                                 fontWeight: "700",
-                                boxShadow:
-                                    "0 4px 15px rgba(239,68,68,0.3)",
                             }}
                         >
                             Logout
