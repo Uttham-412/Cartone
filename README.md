@@ -108,9 +108,10 @@ The application provides a clean and responsive shopping experience with authent
 
 ## Database / Storage
 
-* In-memory mock database using JavaScript objects and arrays
-* Product, user, and cart data managed through backend data files
-* Implemented for demonstrating backend API workflows and ecommerce functionality
+- In-memory mock database using JavaScript objects and arrays
+- Product, user, and cart data managed through backend data files
+- Designed to demonstrate backend API workflows and ecommerce functionality
+- Lightweight storage approach suitable for internship project implementation
 
 ---
 
