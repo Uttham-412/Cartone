@@ -243,10 +243,4 @@ Password: password123
 
 ## Uttham
 
-Built as part of internship assignment submission.
-
----
-
-# 📌 Note
-
-This project is developed for educational and internship evaluation purposes.
+Focused on building clean, responsive, and modern full-stack web applications with intuitive user experiences.
