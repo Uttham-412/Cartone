@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import axios from "axios";
 
 function Cart() {
+    const navigate = useNavigate();
+
     const [cartItems, setCartItems] = useState([]);
 
     const [loading, setLoading] = useState(true);
@@ -295,9 +299,39 @@ function Cart() {
                         ))}
                     </div>
 
-                    <h2 style={{ marginTop: "2rem" }}>
-                        Total: ${totalPrice.toFixed(2)}
-                    </h2>
+                    <div
+                        style={{
+                            marginTop: "2rem",
+                            display: "flex",
+                            justifyContent: "space-between",
+                            alignItems: "center",
+                        }}
+                    >
+                        <h2>
+                            Total: ${totalPrice.toFixed(2)}
+                        </h2>
+
+                        <button
+                            onClick={() => {
+                                localStorage.setItem(
+                                    "cartItems",
+                                    JSON.stringify(cartItems)
+                                );
+
+                                navigate("/billing");
+                            }}
+                            style={{
+                                padding: "0.75rem 1.5rem",
+                                background: "#111827",
+                                color: "white",
+                                border: "none",
+                                borderRadius: "6px",
+                                cursor: "pointer",
+                            }}
+                        >
+                            Proceed to Checkout
+                        </button>
+                    </div>
                 </>
             )}
         </div>
