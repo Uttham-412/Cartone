@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 
-import { FaShoppingCart } from "react-icons/fa";
-
 import { AuthContext } from "../context/AuthContext";
 import { CartContext } from "../context/CartContext";
+
+import logo from "../assets/cartone-logo.png";
 
 function Navbar() {
     const { user, logout } =
@@ -34,26 +34,27 @@ function Navbar() {
                 style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: "0.75rem",
+                    gap: "1rem",
                     textDecoration: "none",
                 }}
             >
-                <div
+                <img
+                    src={logo}
+                    alt="CART One Logo"
                     style={{
-                        background: "#2563eb",
-                        padding: "0.7rem",
+                        width: "55px",
+                        height: "55px",
+                        objectFit: "contain",
                         borderRadius: "12px",
-                        color: "white",
                     }}
-                >
-                    <FaShoppingCart size={20} />
-                </div>
+                />
 
                 <div>
                     <h2
                         style={{
                             color: "white",
-                            fontWeight: "700",
+                            fontWeight: "800",
+                            fontSize: "1.5rem",
                         }}
                     >
                         CART One
@@ -82,6 +83,7 @@ function Navbar() {
                     style={{
                         color: "white",
                         textDecoration: "none",
+                        fontWeight: "500",
                     }}
                 >
                     Products
