@@ -1,10 +1,22 @@
-import { useEffect, useState } from "react";
+import {
+    useEffect,
+    useState,
+    useContext,
+} from "react";
+
 import axios from "axios";
+
+import { CartContext } from "../context/CartContext";
 
 function Products() {
     const [products, setProducts] = useState([]);
+
     const [loading, setLoading] = useState(true);
+
     const [error, setError] = useState("");
+
+    const { cartCount, setCartCount } =
+        useContext(CartContext);
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -125,6 +137,34 @@ function Products() {
                         </p>
 
                         <button
+                            onClick={async () => {
+                                try {
+                                    const token =
+                                        localStorage.getItem("token");
+
+                                    await axios.post(
+                                        "http://localhost:5000/cart/add",
+                                        {
+                                            productId: product.id,
+                                            quantity: 1,
+                                        },
+                                        {
+                                            headers: {
+                                                Authorization: `Bearer ${token}`,
+                                            },
+                                        }
+                                    );
+
+                                    setCartCount(cartCount + 1);
+
+                                    alert("Product added to cart");
+                                } catch (error) {
+                                    alert(
+                                        error.response?.data?.message ||
+                                        "Failed to add to cart"
+                                    );
+                                }
+                            }}
                             style={{
                                 marginTop: "auto",
                                 padding: "0.75rem",
