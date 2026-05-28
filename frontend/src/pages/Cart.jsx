@@ -12,8 +12,7 @@ function Cart() {
     useEffect(() => {
         const fetchCart = async () => {
             try {
-                const token =
-                    localStorage.getItem("token");
+                const token = localStorage.getItem("token");
 
                 const response = await axios.get(
                     "http://localhost:5000/cart",
@@ -58,7 +57,12 @@ function Cart() {
     }
 
     return (
-        <div style={{ padding: "2rem" }}>
+        <div
+            style={{
+                padding: "2rem",
+                paddingBottom: "5rem",
+            }}
+        >
             <h1>Your Cart</h1>
 
             {cartItems.length === 0 ? (
@@ -99,7 +103,7 @@ function Cart() {
                                     }}
                                 />
 
-                                <div>
+                                <div style={{ flex: 1 }}>
                                     <h2>{item.name}</h2>
 
                                     <p
@@ -117,6 +121,164 @@ function Cart() {
                                     >
                                         Price: ${item.price}
                                     </p>
+
+                                    <div
+                                        style={{
+                                            display: "flex",
+                                            gap: "1rem",
+                                            marginTop: "1rem",
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        <button
+                                            onClick={async () => {
+                                                try {
+                                                    const token =
+                                                        localStorage.getItem(
+                                                            "token"
+                                                        );
+
+                                                    await axios.patch(
+                                                        "http://localhost:5000/cart/update",
+                                                        {
+                                                            productId: item.id,
+                                                            quantity:
+                                                                item.quantity - 1,
+                                                        },
+                                                        {
+                                                            headers: {
+                                                                Authorization: `Bearer ${token}`,
+                                                            },
+                                                        }
+                                                    );
+
+                                                    setCartItems((prev) =>
+                                                        prev
+                                                            .map((cartItem) =>
+                                                                cartItem.id ===
+                                                                    item.id
+                                                                    ? {
+                                                                        ...cartItem,
+                                                                        quantity:
+                                                                            cartItem.quantity -
+                                                                            1,
+                                                                    }
+                                                                    : cartItem
+                                                            )
+                                                            .filter(
+                                                                (cartItem) =>
+                                                                    cartItem.quantity >
+                                                                    0
+                                                            )
+                                                    );
+                                                } catch (error) {
+                                                    alert(
+                                                        "Failed to update cart"
+                                                    );
+                                                }
+                                            }}
+                                            style={{
+                                                padding: "0.5rem 1rem",
+                                                cursor: "pointer",
+                                            }}
+                                        >
+                                            -
+                                        </button>
+
+                                        <span>{item.quantity}</span>
+
+                                        <button
+                                            onClick={async () => {
+                                                try {
+                                                    const token =
+                                                        localStorage.getItem(
+                                                            "token"
+                                                        );
+
+                                                    await axios.patch(
+                                                        "http://localhost:5000/cart/update",
+                                                        {
+                                                            productId: item.id,
+                                                            quantity:
+                                                                item.quantity + 1,
+                                                        },
+                                                        {
+                                                            headers: {
+                                                                Authorization: `Bearer ${token}`,
+                                                            },
+                                                        }
+                                                    );
+
+                                                    setCartItems((prev) =>
+                                                        prev.map((cartItem) =>
+                                                            cartItem.id ===
+                                                                item.id
+                                                                ? {
+                                                                    ...cartItem,
+                                                                    quantity:
+                                                                        cartItem.quantity +
+                                                                        1,
+                                                                }
+                                                                : cartItem
+                                                        )
+                                                    );
+                                                } catch (error) {
+                                                    alert(
+                                                        "Failed to update cart"
+                                                    );
+                                                }
+                                            }}
+                                            style={{
+                                                padding: "0.5rem 1rem",
+                                                cursor: "pointer",
+                                            }}
+                                        >
+                                            +
+                                        </button>
+
+                                        <button
+                                            onClick={async () => {
+                                                try {
+                                                    const token =
+                                                        localStorage.getItem(
+                                                            "token"
+                                                        );
+
+                                                    await axios.delete(
+                                                        `http://localhost:5000/cart/remove/${item.id}`,
+                                                        {
+                                                            headers: {
+                                                                Authorization: `Bearer ${token}`,
+                                                            },
+                                                        }
+                                                    );
+
+                                                    setCartItems((prev) =>
+                                                        prev.filter(
+                                                            (cartItem) =>
+                                                                cartItem.id !==
+                                                                item.id
+                                                        )
+                                                    );
+                                                } catch (error) {
+                                                    alert(
+                                                        "Failed to remove item"
+                                                    );
+                                                }
+                                            }}
+                                            style={{
+                                                marginLeft: "auto",
+                                                background: "#ef4444",
+                                                color: "white",
+                                                border: "none",
+                                                padding: "0.5rem 1rem",
+                                                borderRadius: "6px",
+                                                cursor: "pointer",
+                                            }}
+                                        >
+                                            Remove
+                                        </button>
+                                    </div>
 
                                     <h3
                                         style={{
