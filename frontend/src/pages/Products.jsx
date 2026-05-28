@@ -126,22 +126,15 @@ function Products() {
                             flexDirection: "column",
                         }}
                     >
-                        <div
+                        <img
+                            src={product.image}
+                            alt={product.name}
                             style={{
-                                overflow: "hidden",
+                                width: "100%",
+                                height: "260px",
+                                objectFit: "cover",
                             }}
-                        >
-                            <img
-                                src={product.image}
-                                alt={product.name}
-                                style={{
-                                    width: "100%",
-                                    height: "260px",
-                                    objectFit: "cover",
-                                    transition: "0.3s ease",
-                                }}
-                            />
-                        </div>
+                        />
 
                         <div
                             style={{
@@ -188,7 +181,10 @@ function Products() {
                                         fontWeight: "800",
                                     }}
                                 >
-                                    ${product.price}
+                                    ₹
+                                    {Math.round(
+                                        product.price * 83
+                                    )}
                                 </h2>
 
                                 <span

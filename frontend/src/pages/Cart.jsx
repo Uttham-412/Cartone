@@ -7,16 +7,19 @@ import axios from "axios";
 function Cart() {
     const navigate = useNavigate();
 
-    const [cartItems, setCartItems] = useState([]);
+    const [cartItems, setCartItems] =
+        useState([]);
 
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] =
+        useState(true);
 
     const [error, setError] = useState("");
 
     useEffect(() => {
         const fetchCart = async () => {
             try {
-                const token = localStorage.getItem("token");
+                const token =
+                    localStorage.getItem("token");
 
                 const response = await axios.get(
                     "http://localhost:5000/cart",
@@ -46,7 +49,12 @@ function Cart() {
 
     if (loading) {
         return (
-            <div style={{ padding: "2rem" }}>
+            <div
+                style={{
+                    padding: "3rem",
+                    textAlign: "center",
+                }}
+            >
                 <h2>Loading cart...</h2>
             </div>
         );
@@ -54,7 +62,12 @@ function Cart() {
 
     if (error) {
         return (
-            <div style={{ padding: "2rem" }}>
+            <div
+                style={{
+                    padding: "3rem",
+                    textAlign: "center",
+                }}
+            >
                 <h2>{error}</h2>
             </div>
         );
@@ -64,74 +77,117 @@ function Cart() {
         <div
             style={{
                 padding: "2rem",
-                paddingBottom: "5rem",
+                minHeight: "100vh",
             }}
         >
-            <h1>Your Cart</h1>
+            <div
+                style={{
+                    marginBottom: "3rem",
+                }}
+            >
+                <h1
+                    style={{
+                        fontSize: "2.5rem",
+                        fontWeight: "800",
+                        color: "#111827",
+                    }}
+                >
+                    Your Shopping Cart
+                </h1>
+
+                <p
+                    style={{
+                        marginTop: "0.5rem",
+                        color: "#6b7280",
+                        fontSize: "1rem",
+                    }}
+                >
+                    Review your selected items
+                </p>
+            </div>
 
             {cartItems.length === 0 ? (
-                <h3 style={{ marginTop: "1rem" }}>
-                    Cart is empty
-                </h3>
+                <div
+                    style={{
+                        background: "white",
+                        padding: "3rem",
+                        borderRadius: "20px",
+                        textAlign: "center",
+                        boxShadow:
+                            "0 10px 30px rgba(0,0,0,0.08)",
+                    }}
+                >
+                    <h2>Cart is empty</h2>
+                </div>
             ) : (
                 <>
                     <div
                         style={{
                             display: "flex",
                             flexDirection: "column",
-                            gap: "1rem",
-                            marginTop: "2rem",
+                            gap: "1.5rem",
                         }}
                     >
                         {cartItems.map((item) => (
                             <div
                                 key={item.id}
                                 style={{
-                                    display: "flex",
-                                    gap: "1rem",
                                     background: "white",
-                                    padding: "1rem",
-                                    borderRadius: "10px",
+                                    borderRadius: "20px",
+                                    padding: "1.5rem",
+                                    display: "flex",
+                                    gap: "1.5rem",
+                                    alignItems: "center",
                                     boxShadow:
-                                        "0 2px 10px rgba(0,0,0,0.1)",
+                                        "0 10px 30px rgba(0,0,0,0.08)",
+                                    flexWrap: "wrap",
                                 }}
                             >
                                 <img
                                     src={item.image}
                                     alt={item.name}
                                     style={{
-                                        width: "120px",
-                                        height: "120px",
+                                        width: "140px",
+                                        height: "140px",
                                         objectFit: "cover",
-                                        borderRadius: "8px",
+                                        borderRadius: "16px",
                                     }}
                                 />
 
-                                <div style={{ flex: 1 }}>
-                                    <h2>{item.name}</h2>
+                                <div
+                                    style={{
+                                        flex: 1,
+                                        minWidth: "250px",
+                                    }}
+                                >
+                                    <h2
+                                        style={{
+                                            fontSize: "1.5rem",
+                                            fontWeight: "700",
+                                        }}
+                                    >
+                                        {item.name}
+                                    </h2>
 
                                     <p
                                         style={{
-                                            marginTop: "0.5rem",
+                                            marginTop: "0.75rem",
+                                            color: "#6b7280",
                                         }}
                                     >
-                                        Quantity: {item.quantity}
-                                    </p>
-
-                                    <p
-                                        style={{
-                                            marginTop: "0.5rem",
-                                        }}
-                                    >
-                                        Price: ${item.price}
+                                        Price: ₹
+                                        {Math.round(
+                                            item.price * 83
+                                        )}
                                     </p>
 
                                     <div
                                         style={{
                                             display: "flex",
-                                            gap: "1rem",
-                                            marginTop: "1rem",
                                             alignItems: "center",
+                                            gap: "1rem",
+                                            marginTop: "1.5rem",
+                                            flexWrap: "wrap",
                                         }}
                                     >
                                         <button
@@ -145,9 +201,11 @@ function Cart() {
                                                     await axios.patch(
                                                         "http://localhost:5000/cart/update",
                                                         {
-                                                            productId: item.id,
+                                                            productId:
+                                                                item.id,
                                                             quantity:
-                                                                item.quantity - 1,
+                                                                item.quantity -
+                                                                1,
                                                         },
                                                         {
                                                             headers: {
@@ -156,24 +214,30 @@ function Cart() {
                                                         }
                                                     );
 
-                                                    setCartItems((prev) =>
-                                                        prev
-                                                            .map((cartItem) =>
-                                                                cartItem.id ===
-                                                                    item.id
-                                                                    ? {
-                                                                        ...cartItem,
-                                                                        quantity:
-                                                                            cartItem.quantity -
-                                                                            1,
-                                                                    }
-                                                                    : cartItem
-                                                            )
-                                                            .filter(
-                                                                (cartItem) =>
-                                                                    cartItem.quantity >
-                                                                    0
-                                                            )
+                                                    setCartItems(
+                                                        (prev) =>
+                                                            prev
+                                                                .map(
+                                                                    (
+                                                                        cartItem
+                                                                    ) =>
+                                                                        cartItem.id ===
+                                                                            item.id
+                                                                            ? {
+                                                                                ...cartItem,
+                                                                                quantity:
+                                                                                    cartItem.quantity -
+                                                                                    1,
+                                                                            }
+                                                                            : cartItem
+                                                                )
+                                                                .filter(
+                                                                    (
+                                                                        cartItem
+                                                                    ) =>
+                                                                        cartItem.quantity >
+                                                                        0
+                                                                )
                                                     );
                                                 } catch (error) {
                                                     alert(
@@ -182,14 +246,29 @@ function Cart() {
                                                 }
                                             }}
                                             style={{
-                                                padding: "0.5rem 1rem",
+                                                background:
+                                                    "#e5e7eb",
+                                                border: "none",
+                                                width: "40px",
+                                                height: "40px",
+                                                borderRadius:
+                                                    "10px",
                                                 cursor: "pointer",
+                                                fontSize: "1.2rem",
+                                                fontWeight: "700",
                                             }}
                                         >
                                             -
                                         </button>
 
-                                        <span>{item.quantity}</span>
+                                        <span
+                                            style={{
+                                                fontSize: "1.2rem",
+                                                fontWeight: "700",
+                                            }}
+                                        >
+                                            {item.quantity}
+                                        </span>
 
                                         <button
                                             onClick={async () => {
@@ -202,9 +281,11 @@ function Cart() {
                                                     await axios.patch(
                                                         "http://localhost:5000/cart/update",
                                                         {
-                                                            productId: item.id,
+                                                            productId:
+                                                                item.id,
                                                             quantity:
-                                                                item.quantity + 1,
+                                                                item.quantity +
+                                                                1,
                                                         },
                                                         {
                                                             headers: {
@@ -213,18 +294,22 @@ function Cart() {
                                                         }
                                                     );
 
-                                                    setCartItems((prev) =>
-                                                        prev.map((cartItem) =>
-                                                            cartItem.id ===
-                                                                item.id
-                                                                ? {
-                                                                    ...cartItem,
-                                                                    quantity:
-                                                                        cartItem.quantity +
-                                                                        1,
-                                                                }
-                                                                : cartItem
-                                                        )
+                                                    setCartItems(
+                                                        (prev) =>
+                                                            prev.map(
+                                                                (
+                                                                    cartItem
+                                                                ) =>
+                                                                    cartItem.id ===
+                                                                        item.id
+                                                                        ? {
+                                                                            ...cartItem,
+                                                                            quantity:
+                                                                                cartItem.quantity +
+                                                                                1,
+                                                                        }
+                                                                        : cartItem
+                                                            )
                                                     );
                                                 } catch (error) {
                                                     alert(
@@ -233,8 +318,17 @@ function Cart() {
                                                 }
                                             }}
                                             style={{
-                                                padding: "0.5rem 1rem",
+                                                background:
+                                                    "#2563eb",
+                                                color: "white",
+                                                border: "none",
+                                                width: "40px",
+                                                height: "40px",
+                                                borderRadius:
+                                                    "10px",
                                                 cursor: "pointer",
+                                                fontSize: "1.2rem",
+                                                fontWeight: "700",
                                             }}
                                         >
                                             +
@@ -257,12 +351,15 @@ function Cart() {
                                                         }
                                                     );
 
-                                                    setCartItems((prev) =>
-                                                        prev.filter(
-                                                            (cartItem) =>
-                                                                cartItem.id !==
-                                                                item.id
-                                                        )
+                                                    setCartItems(
+                                                        (prev) =>
+                                                            prev.filter(
+                                                                (
+                                                                    cartItem
+                                                                ) =>
+                                                                    cartItem.id !==
+                                                                    item.id
+                                                            )
                                                     );
                                                 } catch (error) {
                                                     alert(
@@ -272,12 +369,16 @@ function Cart() {
                                             }}
                                             style={{
                                                 marginLeft: "auto",
-                                                background: "#ef4444",
+                                                background:
+                                                    "#ef4444",
                                                 color: "white",
                                                 border: "none",
-                                                padding: "0.5rem 1rem",
-                                                borderRadius: "6px",
+                                                padding:
+                                                    "0.8rem 1.2rem",
+                                                borderRadius:
+                                                    "10px",
                                                 cursor: "pointer",
+                                                fontWeight: "600",
                                             }}
                                         >
                                             Remove
@@ -286,13 +387,16 @@ function Cart() {
 
                                     <h3
                                         style={{
-                                            marginTop: "1rem",
+                                            marginTop: "1.5rem",
+                                            color: "#111827",
                                         }}
                                     >
-                                        Subtotal: $
-                                        {(
-                                            item.price * item.quantity
-                                        ).toFixed(2)}
+                                        Subtotal: ₹
+                                        {Math.round(
+                                            item.price *
+                                            item.quantity *
+                                            83
+                                        )}
                                     </h3>
                                 </div>
                             </div>
@@ -301,32 +405,54 @@ function Cart() {
 
                     <div
                         style={{
-                            marginTop: "2rem",
+                            marginTop: "3rem",
+                            background: "white",
+                            padding: "2rem",
+                            borderRadius: "20px",
+                            boxShadow:
+                                "0 10px 30px rgba(0,0,0,0.08)",
                             display: "flex",
-                            justifyContent: "space-between",
+                            justifyContent:
+                                "space-between",
                             alignItems: "center",
+                            flexWrap: "wrap",
+                            gap: "1rem",
                         }}
                     >
-                        <h2>
-                            Total: ${totalPrice.toFixed(2)}
+                        <h2
+                            style={{
+                                fontSize: "2rem",
+                                color: "#111827",
+                            }}
+                        >
+                            Total: ₹
+                            {Math.round(totalPrice * 83)}
                         </h2>
 
                         <button
                             onClick={() => {
                                 localStorage.setItem(
                                     "cartItems",
-                                    JSON.stringify(cartItems)
+                                    JSON.stringify(
+                                        cartItems
+                                    )
                                 );
 
                                 navigate("/billing");
                             }}
                             style={{
-                                padding: "0.75rem 1.5rem",
-                                background: "#111827",
+                                padding:
+                                    "1rem 2rem",
+                                background:
+                                    "linear-gradient(90deg, #2563eb, #1d4ed8)",
                                 color: "white",
                                 border: "none",
-                                borderRadius: "6px",
+                                borderRadius: "14px",
                                 cursor: "pointer",
+                                fontWeight: "700",
+                                fontSize: "1rem",
+                                boxShadow:
+                                    "0 6px 20px rgba(37,99,235,0.3)",
                             }}
                         >
                             Proceed to Checkout

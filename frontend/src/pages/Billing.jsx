@@ -4,13 +4,15 @@ import { useNavigate } from "react-router-dom";
 function Billing() {
     const navigate = useNavigate();
 
-    const [cartItems, setCartItems] = useState([]);
+    const [cartItems, setCartItems] =
+        useState([]);
 
-    const [formData, setFormData] = useState({
-        fullName: "",
-        address: "",
-        cardNumber: "",
-    });
+    const [formData, setFormData] =
+        useState({
+            fullName: "",
+            address: "",
+            cardNumber: "",
+        });
 
     useEffect(() => {
         const storedCart =
@@ -30,7 +32,8 @@ function Billing() {
     const handleChange = (event) => {
         setFormData({
             ...formData,
-            [event.target.name]: event.target.value,
+            [event.target.name]:
+                event.target.value,
         });
     };
 
@@ -46,7 +49,12 @@ function Billing() {
 
         alert("Order placed successfully!");
 
-        localStorage.removeItem("cartItems");
+        localStorage.removeItem(
+            "cartItems"
+        );
+        localStorage.removeItem(
+            "cartCount"
+        );
 
         navigate("/");
     };
@@ -70,7 +78,9 @@ function Billing() {
                     placeholder="Full Name"
                     value={formData.fullName}
                     onChange={handleChange}
-                    style={{ padding: "0.75rem" }}
+                    style={{
+                        padding: "0.75rem",
+                    }}
                 />
 
                 <input
@@ -79,7 +89,9 @@ function Billing() {
                     placeholder="Address"
                     value={formData.address}
                     onChange={handleChange}
-                    style={{ padding: "0.75rem" }}
+                    style={{
+                        padding: "0.75rem",
+                    }}
                 />
 
                 <input
@@ -88,10 +100,15 @@ function Billing() {
                     placeholder="Card Number"
                     value={formData.cardNumber}
                     onChange={handleChange}
-                    style={{ padding: "0.75rem" }}
+                    style={{
+                        padding: "0.75rem",
+                    }}
                 />
 
-                <h2>Total: ${totalPrice.toFixed(2)}</h2>
+                <h2>
+                    Total: ₹
+                    {Math.round(totalPrice * 83)}
+                </h2>
 
                 <button
                     onClick={handleCheckout}
