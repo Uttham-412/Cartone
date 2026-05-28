@@ -32,7 +32,9 @@ function Cart() {
 
                 setCartItems(response.data);
             } catch (error) {
-                setError("Failed to fetch cart");
+                setError(
+                    "Unable to load cart items."
+                );
             } finally {
                 setLoading(false);
             }
@@ -43,7 +45,8 @@ function Cart() {
 
     const totalPrice = cartItems.reduce(
         (total, item) =>
-            total + item.price * item.quantity,
+            total +
+            item.price * item.quantity,
         0
     );
 
@@ -117,7 +120,7 @@ function Cart() {
                             "0 10px 30px rgba(0,0,0,0.08)",
                     }}
                 >
-                    <h2>Cart is empty</h2>
+                    <h2>Your cart is currently empty.</h2>
                 </div>
             ) : (
                 <>
@@ -241,7 +244,7 @@ function Cart() {
                                                     );
                                                 } catch (error) {
                                                     alert(
-                                                        "Failed to update cart"
+                                                        "Unable to update cart quantity."
                                                     );
                                                 }
                                             }}
@@ -313,7 +316,7 @@ function Cart() {
                                                     );
                                                 } catch (error) {
                                                     alert(
-                                                        "Failed to update cart"
+                                                        "Unable to update cart quantity."
                                                     );
                                                 }
                                             }}
@@ -363,7 +366,7 @@ function Cart() {
                                                     );
                                                 } catch (error) {
                                                     alert(
-                                                        "Failed to remove item"
+                                                        "Unable to remove item from cart."
                                                     );
                                                 }
                                             }}
@@ -426,7 +429,9 @@ function Cart() {
                             }}
                         >
                             Total: ₹
-                            {Math.round(totalPrice * 83)}
+                            {Math.round(
+                                totalPrice * 83
+                            )}
                         </h2>
 
                         <button
@@ -444,7 +449,7 @@ function Cart() {
                                 padding:
                                     "1rem 2rem",
                                 background:
-                                    "linear-gradient(90deg, #2563eb, #1d4ed8)",
+                                    "linear-gradient(135deg, #2563eb, #1d4ed8)",
                                 color: "white",
                                 border: "none",
                                 borderRadius: "14px",

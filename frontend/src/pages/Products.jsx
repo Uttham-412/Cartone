@@ -6,36 +6,116 @@ import {
 
 import axios from "axios";
 
+import { useNavigate } from "react-router-dom";
+
 import { CartContext } from "../context/CartContext";
 
 function Products() {
-    const [products, setProducts] = useState([]);
+    const navigate = useNavigate();
+
+    const {
+        cartCount,
+        setCartCount,
+    } = useContext(CartContext);
+
+    const [products, setProducts] =
+        useState([]);
 
     const [loading, setLoading] =
         useState(true);
 
-    const [error, setError] = useState("");
-
-    const { cartCount, setCartCount } =
-        useContext(CartContext);
-
     useEffect(() => {
-        const fetchProducts = async () => {
-            try {
-                const response = await axios.get(
-                    "http://localhost:5000/products"
-                );
+        const fetchProducts =
+            async () => {
+                try {
+                    const response =
+                        await axios.get(
+                            "http://localhost:5000/products"
+                        );
 
-                setProducts(response.data);
-            } catch (error) {
-                setError("Failed to fetch products");
-            } finally {
-                setLoading(false);
-            }
-        };
+                    setProducts(
+                        response.data
+                    );
+                } catch (error) {
+                    alert(
+                        "Unable to load products."
+                    );
+                } finally {
+                    setLoading(false);
+                }
+            };
 
         fetchProducts();
     }, []);
+
+    const handleAddToCart = async (
+        productId
+    ) => {
+        const token =
+            localStorage.getItem("token");
+
+        if (!token) {
+            alert(
+                "Please login to add items to your cart."
+            );
+
+            navigate("/login");
+
+            return;
+        }
+
+        try {
+            await axios.post(
+                "http://localhost:5000/cart/add",
+                {
+                    productId,
+                    quantity: 1,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            alert(
+                "Product added to cart successfully."
+            );
+
+            const updatedCount =
+                cartCount + 1;
+
+            setCartCount(
+                updatedCount
+            );
+
+            localStorage.setItem(
+                "cartCount",
+                updatedCount
+            );
+        } catch (error) {
+            if (
+                error.response?.status ===
+                401
+            ) {
+                localStorage.removeItem(
+                    "token"
+                );
+
+                alert(
+                    "Session expired. Please login again."
+                );
+
+                navigate("/login");
+            } else {
+                alert(
+                    error.response?.data
+                        ?.message ||
+                    "Unable to add product to cart."
+                );
+            }
+        }
+    };
 
     if (loading) {
         return (
@@ -45,20 +125,9 @@ function Products() {
                     textAlign: "center",
                 }}
             >
-                <h2>Loading products...</h2>
-            </div>
-        );
-    }
-
-    if (error) {
-        return (
-            <div
-                style={{
-                    padding: "3rem",
-                    textAlign: "center",
-                }}
-            >
-                <h2>{error}</h2>
+                <h2>
+                    Loading products...
+                </h2>
             </div>
         );
     }
@@ -66,26 +135,25 @@ function Products() {
     return (
         <div
             style={{
-                padding: "2rem",
-                minHeight: "100vh",
+                padding: "1.5rem",
             }}
         >
             <div
                 style={{
-                    textAlign: "center",
-                    marginBottom: "4rem",
-                    padding: "3rem 1rem",
-                    borderRadius: "24px",
                     background:
-                        "linear-gradient(135deg, #2563eb, #1e3a8a)",
+                        "linear-gradient(135deg, #2563eb, #1d4ed8)",
+                    padding: "4rem 2rem",
+                    borderRadius: "30px",
                     color: "white",
+                    textAlign: "center",
+                    marginBottom: "3rem",
                     boxShadow:
-                        "0 10px 30px rgba(37,99,235,0.3)",
+                        "0 15px 40px rgba(37,99,235,0.25)",
                 }}
             >
                 <h1
                     style={{
-                        fontSize: "3rem",
+                        fontSize: "4rem",
                         fontWeight: "800",
                     }}
                 >
@@ -95,12 +163,11 @@ function Products() {
                 <p
                     style={{
                         marginTop: "1rem",
-                        fontSize: "1.2rem",
-                        color: "#dbeafe",
+                        fontSize: "1.3rem",
+                        opacity: 0.9,
                     }}
                 >
-                    Modern shopping experience
-                    with premium products
+                    Modern shopping experience with premium products
                 </p>
             </div>
 
@@ -108,7 +175,7 @@ function Products() {
                 style={{
                     display: "grid",
                     gridTemplateColumns:
-                        "repeat(auto-fit, minmax(320px, 1fr))",
+                        "repeat(auto-fit, minmax(300px, 1fr))",
                     gap: "2rem",
                 }}
             >
@@ -121,9 +188,12 @@ function Products() {
                             overflow: "hidden",
                             boxShadow:
                                 "0 10px 30px rgba(0,0,0,0.08)",
-                            transition: "0.3s ease",
+                            transition:
+                                "transform 0.3s ease",
+
                             display: "flex",
                             flexDirection: "column",
+                            minHeight: "620px",
                         }}
                     >
                         <img
@@ -131,7 +201,7 @@ function Products() {
                             alt={product.name}
                             style={{
                                 width: "100%",
-                                height: "260px",
+                                height: "250px",
                                 objectFit: "cover",
                             }}
                         />
@@ -139,6 +209,7 @@ function Products() {
                         <div
                             style={{
                                 padding: "1.5rem",
+
                                 display: "flex",
                                 flexDirection: "column",
                                 flex: 1,
@@ -146,7 +217,7 @@ function Products() {
                         >
                             <h2
                                 style={{
-                                    fontSize: "1.5rem",
+                                    fontSize: "2rem",
                                     fontWeight: "700",
                                     color: "#111827",
                                 }}
@@ -159,7 +230,6 @@ function Products() {
                                     marginTop: "1rem",
                                     color: "#6b7280",
                                     lineHeight: "1.7",
-                                    minHeight: "80px",
                                 }}
                             >
                                 {product.description}
@@ -174,10 +244,10 @@ function Products() {
                                     alignItems: "center",
                                 }}
                             >
-                                <h2
+                                <h3
                                     style={{
                                         color: "#2563eb",
-                                        fontSize: "1.8rem",
+                                        fontSize: "2rem",
                                         fontWeight: "800",
                                     }}
                                 >
@@ -185,73 +255,52 @@ function Products() {
                                     {Math.round(
                                         product.price * 83
                                     )}
-                                </h2>
+                                </h3>
 
                                 <span
                                     style={{
-                                        background: "#dbeafe",
+                                        background:
+                                            "#dbeafe",
                                         color: "#1d4ed8",
                                         padding:
                                             "0.4rem 0.8rem",
-                                        borderRadius: "999px",
+                                        borderRadius:
+                                            "999px",
                                         fontWeight: "600",
                                         fontSize: "0.9rem",
                                     }}
                                 >
-                                    Stock: {product.stock}
+                                    Stock:{" "}
+                                    {product.stock}
                                 </span>
                             </div>
 
-                            <button
-                                onClick={async () => {
-                                    try {
-                                        const token =
-                                            localStorage.getItem(
-                                                "token"
-                                            );
-
-                                        await axios.post(
-                                            "http://localhost:5000/cart/add",
-                                            {
-                                                productId:
-                                                    product.id,
-                                                quantity: 1,
-                                            },
-                                            {
-                                                headers: {
-                                                    Authorization: `Bearer ${token}`,
-                                                },
-                                            }
-                                        );
-
-                                        setCartCount(
-                                            cartCount + 1
-                                        );
-
-                                        alert(
-                                            "Product added to cart"
-                                        );
-                                    } catch (error) {
-                                        alert(
-                                            error.response?.data
-                                                ?.message ||
-                                            "Failed to add to cart"
-                                        );
-                                    }
-                                }}
+                            <div
                                 style={{
                                     marginTop: "auto",
+                                }}
+                            />
+
+                            <button
+                                onClick={() =>
+                                    handleAddToCart(
+                                        product.id
+                                    )
+                                }
+                                style={{
+                                    width: "100%",
+                                    marginTop: "1.5rem",
                                     padding: "1rem",
-                                    background:
-                                        "linear-gradient(90deg, #2563eb, #1d4ed8)",
-                                    color: "white",
                                     border: "none",
                                     borderRadius: "14px",
+                                    background:
+                                        "linear-gradient(135deg, #2563eb, #1d4ed8)",
+                                    color: "white",
                                     fontWeight: "700",
                                     fontSize: "1rem",
                                     cursor: "pointer",
                                     boxShadow:
-                                        "0 6px 20px rgba(37,99,235,0.3)",
+                                        "0 6px 20px rgba(37,99,235,0.25)",
                                 }}
                             >
                                 Add to Cart

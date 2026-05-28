@@ -3,7 +3,10 @@ import {
     useLocation,
 } from "react-router-dom";
 
-import { useContext } from "react";
+import {
+    useContext,
+    useEffect,
+} from "react";
 
 import { AuthContext } from "../context/AuthContext";
 import { CartContext } from "../context/CartContext";
@@ -14,10 +17,28 @@ function Navbar() {
     const { user, logout } =
         useContext(AuthContext);
 
-    const { cartCount } =
-        useContext(CartContext);
+    const {
+        cartCount,
+        setCartCount,
+    } = useContext(CartContext);
 
     const location = useLocation();
+
+    useEffect(() => {
+        if (
+            location.pathname === "/cart"
+        ) {
+            setCartCount(0);
+
+            localStorage.setItem(
+                "cartCount",
+                0
+            );
+        }
+    }, [
+        location.pathname,
+        setCartCount,
+    ]);
 
     return (
         <nav
@@ -114,10 +135,12 @@ function Navbar() {
                         <Link
                             to="/cart"
                             style={{
+                                position: "relative",
+
                                 color: "white",
                                 textDecoration: "none",
                                 fontWeight: "700",
-                                padding: "0.8rem 1.2rem",
+                                padding: "0.8rem 1.4rem",
                                 borderRadius: "12px",
 
                                 background:
@@ -127,7 +150,45 @@ function Navbar() {
                                         : "rgba(255,255,255,0.08)",
                             }}
                         >
-                            Cart ({cartCount})
+                            Cart
+
+                            {cartCount > 0 && (
+                                <span
+                                    style={{
+                                        position: "absolute",
+                                        top: "-6px",
+                                        right: "-6px",
+
+                                        minWidth: "22px",
+                                        height: "22px",
+
+                                        background:
+                                            "#ef4444",
+
+                                        color: "white",
+
+                                        borderRadius:
+                                            "999px",
+
+                                        display: "flex",
+                                        alignItems:
+                                            "center",
+                                        justifyContent:
+                                            "center",
+
+                                        fontSize: "0.75rem",
+                                        fontWeight: "700",
+
+                                        border:
+                                            "2px solid #0f172a",
+
+                                        boxShadow:
+                                            "0 0 12px rgba(239,68,68,0.5)",
+                                    }}
+                                >
+                                    {cartCount}
+                                </span>
+                            )}
                         </Link>
 
                         <span
