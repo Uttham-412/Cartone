@@ -136,7 +136,7 @@ cart-one/
 ## 1️⃣ Clone Repository
 
 ```bash
-git clone https://github.com/Uttham-412/cartone-shopping-app.git
+git clone https://github.com/Uttham-412/Cartone.git
 ```
 
 ---
