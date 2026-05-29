@@ -1,25 +1,42 @@
 # CART One 🛒
 
-CART One is a modern full-stack ecommerce shopping cart application built using React.js and Node.js.  
-The application provides a clean and responsive shopping experience with authentication, cart management, checkout flow, product search, sorting functionality, and professional UI design.
+CART One is a modern full-stack ecommerce shopping cart application built using React.js, Node.js, Express.js, and MongoDB.
+
+The application provides a clean and responsive shopping experience with secure authentication, cart management, checkout flow, product search, sorting functionality, and persistent database storage.
 
 ---
 
-# 🚀 Live Features
+# 🚀 Features
 
-✅ User Authentication  
-✅ JWT Authorization  
-✅ Product Listing  
-✅ Add to Cart  
-✅ Remove from Cart  
-✅ Quantity Management  
-✅ Checkout Page  
-✅ Product Search  
-✅ Product Sorting  
-✅ Real-time Cart Notification Badge  
-✅ Responsive UI  
-✅ Professional Error Handling  
-✅ Modern Ecommerce Design  
+✅ User Authentication
+
+✅ JWT Authorization
+
+✅ MongoDB Database Integration
+
+✅ Product Listing
+
+✅ Add to Cart
+
+✅ Remove from Cart
+
+✅ Quantity Management
+
+✅ Checkout Page
+
+✅ Product Search
+
+✅ Product Sorting
+
+✅ Real-time Cart Notification Badge
+
+✅ Responsive UI
+
+✅ Protected Routes
+
+✅ Professional Error Handling
+
+✅ Modern Ecommerce Design
 
 ---
 
@@ -30,11 +47,12 @@ The application provides a clean and responsive shopping experience with authent
 <img width="100%" alt="Home Page" src="./screenshots/home-page.png">
 
 ### Features
-- Product listing
-- Product search
-- Product sorting
-- Responsive product grid
-- Modern ecommerce UI
+
+* Product listing
+* Product search
+* Product sorting
+* Responsive product grid
+* Modern ecommerce UI
 
 ---
 
@@ -43,10 +61,12 @@ The application provides a clean and responsive shopping experience with authent
 <img width="100%" alt="Cart Page" src="./screenshots/cart-page.png">
 
 ### Features
-- Quantity update
-- Remove products
-- Dynamic total calculation
-- Checkout integration
+
+* Quantity update
+* Remove products
+* Dynamic total calculation
+* Persistent cart storage
+* Checkout integration
 
 ---
 
@@ -55,9 +75,10 @@ The application provides a clean and responsive shopping experience with authent
 <img width="100%" alt="Checkout Page" src="./screenshots/checkout-page.png">
 
 ### Features
-- Billing form
-- Order summary
-- Place order functionality
+
+* Billing form
+* Order summary
+* Place order functionality
 
 ---
 
@@ -75,46 +96,47 @@ The application provides a clean and responsive shopping experience with authent
 
 # ✨ Key Highlights
 
-- Full-stack ecommerce workflow
-- JWT-based authentication
-- Modern React frontend
-- REST API integration
-- Responsive design
-- Professional UI/UX
-- Realtime cart updates
-- Search and sorting functionality
-- Clean component architecture
+* Full-stack ecommerce workflow
+* JWT-based authentication
+* MongoDB database integration
+* Persistent user and cart storage
+* Modern React frontend
+* REST API integration
+* Responsive design
+* Professional UI/UX
+* Realtime cart updates
+* Search and sorting functionality
+* Clean component architecture
 
 ---
 
 # 🛠️ Tech Stack
 
 ## Frontend
-- React.js
-- React Router DOM
-- Axios
-- Context API
-- CSS Inline Styling
+
+* React.js
+* React Router DOM
+* Axios
+* Context API
+* CSS Inline Styling
 
 ---
 
 ## Backend
-- Node.js
-- Express.js
-- JWT Authentication
-- bcryptjs
+
+* Node.js
+* Express.js
+* JWT Authentication
+* bcryptjs
 
 ---
 
-## Database / Storage
+## Database
 
-- In-memory mock database using JavaScript objects and arrays
-- Product, user, and cart data managed through backend data files
-- Designed to demonstrate backend API workflows and ecommerce functionality
-- Lightweight storage approach suitable for internship project implementation
+* MongoDB
+* Mongoose
 
 ---
-
 
 # 📁 Project Structure
 
@@ -123,6 +145,14 @@ cart-one/
 │
 ├── frontend/
 ├── backend/
+│   ├── config/
+│   ├── controllers/
+│   ├── middleware/
+│   ├── models/
+│   ├── routes/
+│   ├── seedProducts.js
+│   └── server.js
+│
 ├── screenshots/
 │
 ├── README.md
@@ -143,21 +173,9 @@ git clone https://github.com/Uttham-412/Cartone.git
 
 ## 2️⃣ Backend Setup
 
-Navigate to backend folder:
-
 ```bash
 cd backend
-```
-
-Install dependencies:
-
-```bash
 npm install
-```
-
-Start backend server:
-
-```bash
 npm run dev
 ```
 
@@ -169,23 +187,35 @@ http://localhost:5000
 
 ---
 
-## 3️⃣ Frontend Setup
+## 3️⃣ MongoDB Setup
 
-Navigate to frontend folder:
+Make sure MongoDB is running locally.
+
+Create a `.env` file inside the backend folder:
+
+```env
+PORT=5000
+JWT_SECRET=your_secret_key
+MONGODB_URI=mongodb://127.0.0.1:27017/cartone
+```
+
+---
+
+## 4️⃣ Seed Products
+
+```bash
+node seedProducts.js
+```
+
+This will populate the database with sample products.
+
+---
+
+## 5️⃣ Frontend Setup
 
 ```bash
 cd frontend
-```
-
-Install dependencies:
-
-```bash
 npm install
-```
-
-Run frontend server:
-
-```bash
 npm run dev
 ```
 
@@ -197,55 +227,48 @@ http://localhost:5173
 
 ---
 
-# 🔐 Sample Login Credentials
-
-```bash
-Email: test@example.com
-Password: password123
-```
-
----
-
 # 📦 API Endpoints
 
 ## Authentication APIs
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | /auth/register | Register new user |
-| POST | /auth/login | Login user |
+| Method | Endpoint  | Description       |
+| ------ | --------- | ----------------- |
+| POST   | /register | Register new user |
+| POST   | /login    | Login user        |
 
 ---
 
 ## Product APIs
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | /products | Fetch all products |
+| Method | Endpoint  | Description        |
+| ------ | --------- | ------------------ |
+| GET    | /products | Fetch all products |
 
 ---
 
 ## Cart APIs
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| GET | /cart | Get user cart |
-| POST | /cart/add | Add product to cart |
-| PATCH | /cart/update | Update cart quantity |
+| Method | Endpoint                | Description              |
+| ------ | ----------------------- | ------------------------ |
+| GET    | /cart                   | Get user cart            |
+| POST   | /cart/add               | Add product to cart      |
+| PATCH  | /cart/update            | Update cart quantity     |
 | DELETE | /cart/remove/:productId | Remove product from cart |
 
 ---
 
-# 🎯 Additional Improvements Added
+# 🎯 Additional Improvements
 
-- CART One branding and logo
-- Modern ecommerce hero section
-- Dynamic cart notification badge
-- Active navigation highlighting
-- Responsive product cards
-- Session expiry handling
-- Professional alerts and validations
-- Real-time UI updates
+* MongoDB persistence replacing mock data
+* CART One branding and logo
+* Modern ecommerce hero section
+* Dynamic cart notification badge
+* Active navigation highlighting
+* Responsive product cards
+* Session expiry handling
+* Professional alerts and validations
+* Real-time UI updates
+* Protected routes using JWT authentication
 
 ---
 
