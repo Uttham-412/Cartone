@@ -272,6 +272,17 @@ http://localhost:5173
 
 ---
 
+## Future Improvements
+
+- Product categories and filtering
+- Order history for users
+- Payment gateway integration
+- Admin dashboard for product management
+- Product reviews and ratings
+- Cloud deployment using Render/Vercel
+
+---
+
 # 👨‍💻 Author
 
 ## Uttham
