@@ -1,8 +1,10 @@
-const bcrypt = require("bcryptjs");
+require("dotenv").config();
+
+const mongoose = require("mongoose");
+const Product = require("./models/Product");
 
 const products = [
     {
-        id: 1,
         name: "Wireless Headphones",
         description:
             "Bluetooth over-ear headphones with noise cancellation.",
@@ -12,7 +14,6 @@ const products = [
             "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500",
     },
     {
-        id: 2,
         name: "Gaming Keyboard",
         description:
             "Mechanical keyboard with RGB lighting.",
@@ -22,7 +23,6 @@ const products = [
             "https://images.unsplash.com/photo-1511467687858-23d96c32e4ae?w=500",
     },
     {
-        id: 3,
         name: "Smart Watch",
         description:
             "Fitness tracking smartwatch with heart-rate monitor.",
@@ -32,7 +32,6 @@ const products = [
             "https://images.unsplash.com/photo-1546868871-7041f2a55e12?w=500",
     },
     {
-        id: 4,
         name: "Laptop Backpack",
         description:
             "Durable backpack with laptop compartment.",
@@ -42,7 +41,6 @@ const products = [
             "https://images.unsplash.com/photo-1581605405669-fcdf81165afa?w=500",
     },
     {
-        id: 5,
         name: "Coffee Mug",
         description:
             "Ceramic coffee mug for everyday use.",
@@ -52,7 +50,6 @@ const products = [
             "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=500",
     },
     {
-        id: 6,
         name: "External SSD",
         description:
             "Portable high-speed external SSD storage.",
@@ -62,7 +59,6 @@ const products = [
             "https://images.unsplash.com/photo-1593642632823-8f785ba67e45?w=500",
     },
     {
-        id: 7,
         name: "Bluetooth Speaker",
         description:
             "Portable wireless speaker with deep bass.",
@@ -72,7 +68,6 @@ const products = [
             "https://images.unsplash.com/photo-1589003077984-894e133dabab?w=500",
     },
     {
-        id: 8,
         name: "Running Shoes",
         description:
             "Comfortable lightweight running shoes.",
@@ -82,7 +77,6 @@ const products = [
             "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500",
     },
     {
-        id: 9,
         name: "Desk Lamp",
         description:
             "Modern LED desk lamp with brightness control.",
@@ -92,7 +86,6 @@ const products = [
             "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=500",
     },
     {
-        id: 10,
         name: "Phone Stand",
         description:
             "Adjustable aluminum phone stand for desk setup.",
@@ -103,22 +96,27 @@ const products = [
     },
 ];
 
-const users = [
-    {
-        id: 1,
-        username: "testuser",
-        email: "test@example.com",
-        password: bcrypt.hashSync(
-            "password123",
-            10
-        ),
-    },
-];
+async function seedProducts() {
+    try {
+        await mongoose.connect(
+            process.env.MONGODB_URI
+        );
 
-const carts = {};
+        await Product.deleteMany();
 
-module.exports = {
-    products,
-    users,
-    carts,
-};
+        await Product.insertMany(
+            products
+        );
+
+        console.log(
+            "Products seeded successfully"
+        );
+
+        process.exit();
+    } catch (error) {
+        console.error(error);
+        process.exit(1);
+    }
+}
+
+seedProducts();

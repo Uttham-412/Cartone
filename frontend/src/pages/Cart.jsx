@@ -133,7 +133,7 @@ function Cart() {
                     >
                         {cartItems.map((item) => (
                             <div
-                                key={item.id}
+                                key={item._id}
                                 style={{
                                     background: "white",
                                     borderRadius: "20px",
@@ -205,7 +205,7 @@ function Cart() {
                                                         "http://localhost:5000/cart/update",
                                                         {
                                                             productId:
-                                                                item.id,
+                                                                item._id,
                                                             quantity:
                                                                 item.quantity -
                                                                 1,
@@ -224,8 +224,7 @@ function Cart() {
                                                                     (
                                                                         cartItem
                                                                     ) =>
-                                                                        cartItem.id ===
-                                                                            item.id
+                                                                        cartItem._id === item._id
                                                                             ? {
                                                                                 ...cartItem,
                                                                                 quantity:
@@ -285,7 +284,7 @@ function Cart() {
                                                         "http://localhost:5000/cart/update",
                                                         {
                                                             productId:
-                                                                item.id,
+                                                                item._id,
                                                             quantity:
                                                                 item.quantity +
                                                                 1,
@@ -303,8 +302,8 @@ function Cart() {
                                                                 (
                                                                     cartItem
                                                                 ) =>
-                                                                    cartItem.id ===
-                                                                        item.id
+                                                                    cartItem._id ===
+                                                                        item._id
                                                                         ? {
                                                                             ...cartItem,
                                                                             quantity:
@@ -346,7 +345,7 @@ function Cart() {
                                                         );
 
                                                     await axios.delete(
-                                                        `http://localhost:5000/cart/remove/${item.id}`,
+                                                        `http://localhost:5000/cart/remove/${item._id}`,
                                                         {
                                                             headers: {
                                                                 Authorization: `Bearer ${token}`,
@@ -360,8 +359,8 @@ function Cart() {
                                                                 (
                                                                     cartItem
                                                                 ) =>
-                                                                    cartItem.id !==
-                                                                    item.id
+                                                                    cartItem._id !==
+                                                                    item._id
                                                             )
                                                     );
                                                 } catch (error) {

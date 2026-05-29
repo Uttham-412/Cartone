@@ -81,7 +81,7 @@ function Navbar() {
                 style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: "1.5rem",
+                    gap: "1rem",
                 }}
             >
                 <Link
@@ -90,13 +90,12 @@ function Navbar() {
                         color: "white",
                         textDecoration: "none",
                         fontWeight: "700",
-                        padding: "0.7rem 1rem",
+                        padding: "0.8rem 1.2rem",
                         borderRadius: "12px",
-
                         background:
                             location.pathname === "/"
                                 ? "linear-gradient(135deg, #2563eb, #1d4ed8)"
-                                : "transparent",
+                                : "rgba(255,255,255,0.08)",
                     }}
                 >
                     Products
@@ -121,10 +120,14 @@ function Navbar() {
                                 background:
                                     "linear-gradient(135deg, #2563eb, #1d4ed8)",
                                 color: "white",
-                                padding: "0.8rem 1.4rem",
-                                borderRadius: "12px",
-                                textDecoration: "none",
-                                fontWeight: "700",
+                                padding:
+                                    "0.8rem 1.4rem",
+                                borderRadius:
+                                    "12px",
+                                textDecoration:
+                                    "none",
+                                fontWeight:
+                                    "700",
                             }}
                         >
                             Register
@@ -135,14 +138,18 @@ function Navbar() {
                         <Link
                             to="/cart"
                             style={{
-                                position: "relative",
-
-                                color: "white",
-                                textDecoration: "none",
-                                fontWeight: "700",
-                                padding: "0.8rem 1.4rem",
-                                borderRadius: "12px",
-
+                                position:
+                                    "relative",
+                                color:
+                                    "white",
+                                textDecoration:
+                                    "none",
+                                fontWeight:
+                                    "700",
+                                padding:
+                                    "0.8rem 1.2rem",
+                                borderRadius:
+                                    "12px",
                                 background:
                                     location.pathname ===
                                         "/cart"
@@ -155,35 +162,32 @@ function Navbar() {
                             {cartCount > 0 && (
                                 <span
                                     style={{
-                                        position: "absolute",
+                                        position:
+                                            "absolute",
                                         top: "-6px",
                                         right: "-6px",
-
-                                        minWidth: "22px",
-                                        height: "22px",
-
+                                        minWidth:
+                                            "22px",
+                                        height:
+                                            "22px",
                                         background:
                                             "#ef4444",
-
-                                        color: "white",
-
+                                        color:
+                                            "white",
                                         borderRadius:
                                             "999px",
-
-                                        display: "flex",
+                                        display:
+                                            "flex",
                                         alignItems:
                                             "center",
                                         justifyContent:
                                             "center",
-
-                                        fontSize: "0.75rem",
-                                        fontWeight: "700",
-
+                                        fontSize:
+                                            "0.75rem",
+                                        fontWeight:
+                                            "700",
                                         border:
                                             "2px solid #0f172a",
-
-                                        boxShadow:
-                                            "0 0 12px rgba(239,68,68,0.5)",
                                     }}
                                 >
                                     {cartCount}
@@ -191,13 +195,17 @@ function Navbar() {
                             )}
                         </Link>
 
+
                         <span
                             style={{
-                                color: "#d1d5db",
-                                fontWeight: "500",
+                                color:
+                                    "#d1d5db",
+                                fontWeight:
+                                    "500",
                             }}
                         >
-                            Hi, {user.username}
+                            Hi,{" "}
+                            {user.username}
                         </span>
 
                         <button
@@ -205,12 +213,18 @@ function Navbar() {
                             style={{
                                 background:
                                     "linear-gradient(135deg, #ef4444, #dc2626)",
-                                color: "white",
-                                border: "none",
-                                padding: "0.8rem 1.2rem",
-                                borderRadius: "12px",
-                                cursor: "pointer",
-                                fontWeight: "700",
+                                color:
+                                    "white",
+                                border:
+                                    "none",
+                                padding:
+                                    "0.8rem 1.2rem",
+                                borderRadius:
+                                    "12px",
+                                cursor:
+                                    "pointer",
+                                fontWeight:
+                                    "700",
                             }}
                         >
                             Logout

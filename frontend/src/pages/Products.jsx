@@ -286,7 +286,7 @@ function Products() {
                 {filteredProducts.map(
                     (product) => (
                         <div
-                            key={product.id}
+                            key={product._id}
                             style={{
                                 background:
                                     "white",
@@ -418,7 +418,7 @@ function Products() {
                                 <button
                                     onClick={() =>
                                         handleAddToCart(
-                                            product.id
+                                            product._id
                                         )
                                     }
                                     style={{
